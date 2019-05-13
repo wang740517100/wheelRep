@@ -1,5 +1,6 @@
 package cn.wangkf.bak;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import jxl.CellView;
 import jxl.Workbook;
@@ -14,7 +15,6 @@ import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,10 +76,10 @@ public class Txt2Excel {
             } else if(flag%3 == 2) {
                 percentage = tempStr;
             } else {
-                List<String> strs = Arrays.asList(tempStr.split("\\$")).stream()
+                List<String> strs = Splitter.on("\\$").splitToList(tempStr).stream()
                         .filter(p -> StringUtils.isNoneBlank(p)).collect(Collectors.toList());
+
                 names = strs.get(0);
-                //names = tempStr;
                 txtVo = new TxtFile(String.valueOf(flag/3), time, percentage, names);
                 txtFileList.add(txtVo);
             }
@@ -89,10 +89,10 @@ public class Txt2Excel {
             if (result.indexOf("#", index) == -1) {
                 if (flag%3 == 0){
                     tempStr = result.substring(index, result.length());
-                    List<String> strs = Arrays.asList(tempStr.split("\\$")).stream()
-                        .filter(p -> StringUtils.isNoneBlank(p)).collect(Collectors.toList());
+                    List<String> strs = Splitter.on("\\$").splitToList(tempStr).stream()
+                            .filter(p -> StringUtils.isNoneBlank(p)).collect(Collectors.toList());
+
                     names = strs.get(0);
-                    //names = tempStr;
                     txtVo = new TxtFile(String.valueOf(flag/3), time, percentage, names);
                     txtFileList.add(txtVo);
                 }
@@ -121,9 +121,8 @@ public class Txt2Excel {
             int index=1;
             while ((tempStr = reader.readLine()) != null) {
                 //分解过滤行数据
-                String[] tmp = tempStr.trim().split(" ");
-                List<String> tmpStrs = Arrays.asList(tmp).stream().
-                        filter(p -> StringUtils.isNoneBlank(p)).collect(Collectors.toList());
+                List<String> tmpStrs = Splitter.on(" ").splitToList(tempStr.trim()).stream()
+                        .filter(p -> StringUtils.isNoneBlank(p)).collect(Collectors.toList());
 
                 //如果是空行则添加name字符串信息
                 if (tmpStrs.size() == 0) {
