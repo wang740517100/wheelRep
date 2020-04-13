@@ -106,7 +106,59 @@ public class DateUtils {
         return new Date(longTimeStamp);
     }
 
+    /**
+     * 获取当前时间：时
+     * @return
+     */
+    public static int getHour()
+    {
+        return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+    }
 
+    /**
+     * 获取当前时间：年
+     * @return
+     */
+    public static int getYear()
+    {
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
+
+    /**
+     * 获取当前时间：月
+     * @return
+     */
+    public static int getMonth()
+    {
+        return Calendar.getInstance().get(Calendar.MONTH) + 1;
+    }
+
+    /**
+     * 获取当前时间：天
+     * @return
+     */
+    public static int getDay()
+    {
+        return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 获取当前时间：分
+     * @return
+     */
+    public static int getMimute()
+    {
+        return Calendar.getInstance().get(Calendar.MINUTE);
+    }
+
+    /**
+     * 获取当前时间：秒
+     * @return
+     */
+    public static int getSecond()
+    {
+        return Calendar.getInstance().get(Calendar.SECOND);
+    }
 
 
 }
