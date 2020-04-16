@@ -91,10 +91,7 @@ public class ObjectCompareUtil {
                 }
 
                 // 比较这两个值是否相等,不等就可以放入map了
-              
-                boolean equalFlag = newValue.getClass() == BigDecimal.class ? 
-                    oldValue.compareTo(newValue) == 0 : oldValue.equals(newValue);
-                if (equalFlag) {
+                if (!oldValue.equals(newValue)) {
                     Map<String, Object> valueMap = Maps.newHashMap();
                     valueMap.put(OLD_VALUE_MARK, oldValue);
                     valueMap.put(NEW_VALUE_MARK, newValue);
