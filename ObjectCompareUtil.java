@@ -77,7 +77,7 @@ public class ObjectCompareUtil {
 
                 // 原值为null，新值不为null
                 if(oldValue == null && newValue != null){
-                    Map<String,Object> valueMap = Maps.newHashMap();
+                    Map<String, Object> valueMap = Maps.newHashMap();
                     valueMap.put(OLD_VALUE_MARK, oldValue);
                     valueMap.put(NEW_VALUE_MARK, newValue);
                     resMap.put(fullFieldName, valueMap);
@@ -91,8 +91,11 @@ public class ObjectCompareUtil {
                 }
 
                 // 比较这两个值是否相等,不等就可以放入map了
-                if (!oldValue.equals(newValue)) {
-                    Map<String,Object> valueMap = Maps.newHashMap();
+              
+                boolean equalFlag = newValue.getClass() == BigDecimal.class ? 
+                    oldValue.compareTo(newValue) == 0 : oldValue.equals(newValue);
+                if (equalFlag) {
+                    Map<String, Object> valueMap = Maps.newHashMap();
                     valueMap.put(OLD_VALUE_MARK, oldValue);
                     valueMap.put(NEW_VALUE_MARK, newValue);
                     resMap.put(fullFieldName, valueMap);
@@ -111,7 +114,7 @@ public class ObjectCompareUtil {
      * @return
      */
     private static boolean isHaveChirldObject(List<Class> childFieldClass, Object value) {
-        if (childFieldClass == null || childFieldClass.size() == 0) {
+        if (value == null || childFieldClass == null || childFieldClass.size() == 0) {
             return false;
         }
         for (Class c : childFieldClass) {
