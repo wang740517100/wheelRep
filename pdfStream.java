@@ -10,7 +10,7 @@ import java.io.*;
 /**
  * Created by stanley.wang on 2020/4/2.
  */
-public class pdfStream {
+public class PdfStream {
 
     public static void main(String[] args) throws Exception {
 
