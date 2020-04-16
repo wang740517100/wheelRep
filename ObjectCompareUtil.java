@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +92,15 @@ public class ObjectCompareUtil {
                 }
 
                 // 比较这两个值是否相等,不等就可以放入map了
-                if (!oldValue.equals(newValue)) {
+                boolean equalFlag;
+                if (newValue.getClass() == BigDecimal.class) {
+                    BigDecimal oldBigDecimal = (BigDecimal)oldValue;
+                    BigDecimal newBigDecimal = (BigDecimal)newValue;
+                    equalFlag = oldBigDecimal.compareTo(newBigDecimal) == 0;
+                } else {
+                    equalFlag = oldValue.equals(newValue);
+                }
+                if (!equalFlag) {
                     Map<String, Object> valueMap = Maps.newHashMap();
                     valueMap.put(OLD_VALUE_MARK, oldValue);
                     valueMap.put(NEW_VALUE_MARK, newValue);
