@@ -36,7 +36,7 @@ public class DateUtils {
         curr.setTime(new Date(longTimeStamp));
 
         curr.set(year != null ? year : curr.get(Calendar.YEAR),
-                month != null ? month : curr.get(Calendar.MONTH),
+                month != null ? month-1 : curr.get(Calendar.MONTH),
                 day != null ? day : curr.get(Calendar.DATE),
                 hour != null ? hour : curr.get(Calendar.HOUR),
                 minute != null ? minute : curr.get(Calendar.MINUTE),
